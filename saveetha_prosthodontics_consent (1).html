@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saveetha – Dental Prosthodontics Consent</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f0f4f8;
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 30px 16px;
+}
+h1 { font-size: 1.3rem; font-weight: 700; color: #1a2a3a; margin-bottom: 4px; text-align: center; }
+.subtitle { color: #64748b; font-size: 0.83rem; margin-bottom: 26px; text-align: center; }
+.main { display: flex; gap: 24px; width: 100%; max-width: 1100px; align-items: flex-start; }
+
+/* ── Input Panel ── */
+.input-panel {
+  background: white; border-radius: 16px; padding: 26px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  width: 310px; flex-shrink: 0; position: sticky; top: 20px;
+}
+.input-panel h2 { font-size: 0.93rem; font-weight: 600; color: #1a2a3a; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 2px solid #f0f4f8; }
+.field-row { margin-bottom: 12px; }
+.field-row label { display: block; font-size: 0.71rem; font-weight: 600; color: #374151; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; }
+.field-row input, .field-row select {
+  width: 100%; padding: 9px 12px; border: 1.5px solid #e2e8f0;
+  border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.86rem;
+  color: #1a2a3a; background: #fafbfc; outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.field-row input:focus, .field-row select:focus {
+  border-color: #3b82f6; background: white; box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+}
+.sep { font-size: 0.69rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
+  color: #94a3b8; margin: 14px 0 11px; padding-top: 13px; border-top: 1px dashed #e2e8f0; }
+.btn {
+  width: 100%; padding: 13px; background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  color: white; border: none; border-radius: 10px; font-family: 'Inter', sans-serif;
+  font-size: 0.9rem; font-weight: 600; cursor: pointer; margin-top: 18px;
+  transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+  box-shadow: 0 4px 14px rgba(29,78,216,0.35);
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(29,78,216,0.45); }
+
+/* ── Preview Panel ── */
+.preview-panel { flex: 1; background: white; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); overflow: hidden; }
+.preview-hdr { background: #1a2a3a; color: white; padding: 13px 22px; font-size: 0.82rem; font-weight: 600; }
+.preview-body { padding: 24px; background: #dde3ea; display: flex; justify-content: center; overflow-x: auto; }
+
+/* ── PDF Page (exact A4 595px wide) ── */
+.pdf {
+  width: 595px; min-height: 842px; background: white;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.22);
+  padding: 34px 48px 38px;
+  font-family: 'Times New Roman', Georgia, serif;
+  font-size: 9pt; color: #000; flex-shrink: 0;
+}
+
+/* logos */
+.pdf-logos { display: flex; justify-content: center; gap: 32px; margin-bottom: 8px; align-items: center; }
+.pdf-logos img { height: 68px; width: auto; object-fit: contain; }
+
+/* title - bold underlined centered, matches image */
+.pdf-title {
+  text-align: center; font-weight: bold; text-decoration: underline;
+  text-underline-offset: 2px; font-size: 9.5pt; line-height: 1.6; margin-bottom: 14px;
+}
+
+/* 2-column patient fields */
+.pdf-fields {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4px 10px; margin-bottom: 13px;
+}
+.pdf-fi { display: flex; align-items: baseline; gap: 2px; font-size: 9pt; }
+.pdf-lbl { white-space: nowrap; font-size: 9pt; }
+.pdf-ul {
+  flex: 1; border-bottom: 1px solid #333; min-height: 14px;
+  font-size: 9pt; color: #0000cc; padding: 0 2px;
+  display: flex; align-items: flex-end; font-weight: 500; min-width: 50px;
+}
+.pdf-ul.e { color: transparent; }
+
+/* body paragraphs */
+.pdf-body { font-size: 8.6pt; line-height: 1.7; text-align: justify; margin-bottom: 8px; }
+
+/* risks intro bold */
+.pdf-ri { font-size: 8.6pt; font-weight: bold; line-height: 1.65; text-align: justify; margin-bottom: 7px; }
+
+/* numbered items */
+.pdf-items { padding-left: 0; margin-bottom: 10px; }
+.pdf-item {
+  display: flex; gap: 6px; margin-bottom: 5px;
+  font-size: 8.5pt; line-height: 1.65; text-align: justify;
+  padding-left: 20px; position: relative;
+}
+.pdf-item-n {
+  position: absolute; left: 0;
+  font-weight: bold; min-width: 16px;
+}
+
+/* signature section */
+.pdf-sig { margin-top: 18px; }
+.pdf-sig-row { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 4px; }
+.pdf-sf { display: flex; align-items: baseline; gap: 3px; font-size: 9pt; flex: 1; }
+.pdf-sul {
+  flex: 1; border-bottom: 1px solid #333; min-height: 14px;
+  color: #0000cc; font-size: 9pt; padding: 0 2px;
+  display: flex; align-items: flex-end; font-weight: 500;
+}
+.pdf-sul.e { color: transparent; }
+.pdf-guardian { font-size: 8pt; color: #222; margin: 3px 0 12px 0; }
+.pdf-rel-row { display: flex; align-items: baseline; gap: 3px; font-size: 9pt; margin-bottom: 3px; }
+.pdf-rel-ul {
+  border-bottom: 1px solid #333; min-height: 14px; flex: 1;
+  color: #0000cc; font-size: 9pt; padding: 0 2px;
+  display: flex; align-items: flex-end; font-weight: 500; max-width: 300px;
+}
+.pdf-rel-ul.e { color: transparent; }
+.pdf-rel-note { font-size: 8pt; color: #222; }
+
+@media (max-width: 1000px) {
+  .main { flex-direction: column; align-items: center; }
+  .input-panel { width: 100%; max-width: 595px; position: static; }
+  .pdf { transform: scale(0.68); transform-origin: top center; margin-bottom: -260px; }
+}
+</style>
+</head>
+<body>
+
+<h1>&#x1F9B7; Saveetha Dental – Prosthodontics Consent Form</h1>
+<p class="subtitle">Fill patient details &rarr; Live preview updates &rarr; Click Generate PDF</p>
+
+<div class="main">
+
+  <!-- Input Panel -->
+  <div class="input-panel">
+    <h2>&#x1F4CB; Patient Details</h2>
+    <div class="field-row"><label>Patient Name</label>
+      <input type="text" id="f-name" placeholder="e.g. Ravi Kumar" oninput="update()">
+    </div>
+    <div class="field-row"><label>Date</label>
+      <input type="date" id="f-date" oninput="update()">
+    </div>
+    <div class="field-row"><label>Age</label>
+      <input type="number" id="f-age" placeholder="e.g. 45" min="1" max="120" oninput="update()">
+    </div>
+    <div class="field-row"><label>Gender</label>
+      <select id="f-gender" onchange="update()">
+        <option value="">-- Select --</option>
+        <option>Male</option><option>Female</option><option>Other</option>
+      </select>
+    </div>
+
+    <div class="sep">Signature Section</div>
+    <div class="field-row"><label>Signature (Name)</label>
+      <input type="text" id="f-sig" placeholder="Patient / Parent / Guardian" oninput="update()">
+    </div>
+    <div class="field-row"><label>Signature Date</label>
+      <input type="date" id="f-sigdate" oninput="update()">
+    </div>
+    <div class="field-row"><label>Relationship (if Minor)</label>
+      <input type="text" id="f-rel" placeholder="e.g. Father, Mother, Guardian" oninput="update()">
+    </div>
+
+    <button class="btn" onclick="generatePDF()">&#x2B07; Generate &amp; Download PDF</button>
+  </div>
+
+  <!-- Preview Panel -->
+  <div class="preview-panel">
+    <div class="preview-hdr">&#x1F441; Live Preview &mdash; updates as you type</div>
+    <div class="preview-body">
+      <div class="pdf" id="pdf"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const LL = "data:image/png;base64,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";
+const LR = "data:image/png;base64,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";
+
+const RISKS = [
+  {
+    en: "Potential for root canal treatment after tooth preparation, need for periodontal treatment, home care responsibilities.",
+  },
+  {
+    en: "Failure or Breakage of damaged tooth, Crown and Bridge, Tooth recurrent decay.",
+  },
+  {
+    en: "Changes in Aesthethics and Face, Speech.",
+  },
+  {
+    en: "If treatment is not done it may cause upper teeth to come down and other teeth to move from place.",
+  }
+];
+
+function fmtDate(v) {
+  if (!v) return "";
+  const [y,m,d] = v.split("-");
+  return d+"/"+m+"/"+y;
+}
+
+function vals() {
+  return {
+    name:    document.getElementById("f-name").value.trim(),
+    date:    fmtDate(document.getElementById("f-date").value),
+    age:     document.getElementById("f-age").value.trim(),
+    gender:  document.getElementById("f-gender").value,
+    sig:     document.getElementById("f-sig").value.trim(),
+    sigdate: fmtDate(document.getElementById("f-sigdate").value),
+    rel:     document.getElementById("f-rel").value.trim(),
+  };
+}
+
+function ul(val, minw, cls) {
+  cls = cls || "pdf-ul";
+  return `<div class="${cls} ${val?"":"e"}" style="min-width:${minw||"80px"}">${val||"&nbsp;"}</div>`;
+}
+
+function update() {
+  const V = vals();
+
+  const risksHTML = RISKS.map((r,i) =>
+    `<div class="pdf-item">
+       <span class="pdf-item-n">${i+1}.</span>
+       <span>${r.en}</span>
+     </div>`
+  ).join("");
+
+  document.getElementById("pdf").innerHTML = `
+    <div class="pdf-logos">
+      <img src="${LL}" alt="Saveetha Dental">
+      <img src="${LR}" alt="Saveetha University">
+    </div>
+
+    <div class="pdf-title">
+      SAVEETHA DENTAL COLLEGE AND HOSPITAL<br>
+      CONSENT FOR DENTAL PROSTHODONTICS
+    </div>
+
+    <div class="pdf-fields">
+      <div class="pdf-fi">
+        <span class="pdf-lbl">Patient Name/</span>
+        ${ul(V.name, "120px")}
+      </div>
+      <div class="pdf-fi">
+        <span class="pdf-lbl">Date/</span>
+        ${ul(V.date, "100px")}
+      </div>
+      <div class="pdf-fi">
+        <span class="pdf-lbl">Age/</span>
+        ${ul(V.age ? V.age+" yrs" : "", "120px")}
+      </div>
+      <div class="pdf-fi">
+        <span class="pdf-lbl">Gender/</span>
+        ${ul(V.gender, "100px")}
+      </div>
+    </div>
+
+    <div class="pdf-body">
+      An alternative to the following has been explained and I authorize the Dentist to do the following
+      treatment and any others necessary for the reasons in. I understand I may need further treatment by a
+      specialist or even hospitalization if complications arise during or following treatment, the cost of
+      which is my responsibility. I have been given satisfactory answers to all of my questions, and I wish
+      to proceed with the Recommended Treatment.
+    </div>
+
+    <div class="pdf-ri">
+      These potential risks and complications, include, but are not limited to, the following:
+    </div>
+
+    <div class="pdf-items">
+      ${risksHTML}
+    </div>
+
+    <div class="pdf-sig">
+      <div class="pdf-sig-row">
+        <div class="pdf-sf">
+          <span>Signature/</span>
+          ${ul(V.sig, "160px", "pdf-sul")}
+        </div>
+        <div class="pdf-sf">
+          <span>Date/</span>
+          ${ul(V.sigdate, "110px", "pdf-sul")}
+        </div>
+      </div>
+      <div class="pdf-guardian">(Patient/Parent/Guardian)</div>
+
+      <div class="pdf-rel-row">
+        <span>Relationship (if Patient is a Minor):</span>
+        ${ul(V.rel, "220px", "pdf-rel-ul")}
+      </div>
+      <div class="pdf-rel-note">உறவு (நோயாளி மைனராக இருந்தால்)</div>
+    </div>
+  `;
+}
+
+function generatePDF() {
+  const V = vals();
+
+  function uP(val, w) {
+    return `<span style="display:inline-block;border-bottom:1pt solid #333;min-width:${w||"120pt"};
+      color:${val?"#0000cc":"transparent"};font-weight:${val?"500":"normal"};
+      padding:0 2pt;font-size:9pt;vertical-align:bottom">
+      ${val||"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"}</span>`;
+  }
+
+  const risksRows = RISKS.map((r,i) => `
+    <tr>
+      <td style="width:14pt;font-weight:bold;vertical-align:top;padding-right:5pt;padding-bottom:6pt;white-space:nowrap">${i+1}.</td>
+      <td style="text-align:justify;line-height:1.65;padding-bottom:6pt;font-size:8.5pt">${r.en}</td>
+    </tr>`).join("");
+
+  const pw = window.open("","_blank","width=820,height=1060");
+  pw.document.write(`<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>Prosthodontics Consent – ${V.name||"Patient"}</title>
+<style>
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Times New Roman", Georgia, serif;
+  font-size: 9pt; color: #000;
+  width: 595pt; min-height: 842pt;
+  padding: 34pt 48pt 38pt;
+}
+.logos { display:flex; justify-content:center; gap:30pt; margin-bottom:8pt; align-items:center; }
+.logos img { height:65pt; width:auto; object-fit:contain; }
+.title {
+  text-align:center; font-weight:bold; text-decoration:underline;
+  text-underline-offset:2pt; font-size:9.5pt; line-height:1.6; margin-bottom:13pt;
+}
+.fields { display:grid; grid-template-columns:1fr 1fr; gap:4pt 10pt; margin-bottom:12pt; }
+.fi { display:flex; align-items:baseline; gap:2pt; font-size:9pt; }
+.body { font-size:8.6pt; line-height:1.7; text-align:justify; margin-bottom:8pt; }
+.ri { font-size:8.6pt; font-weight:bold; line-height:1.65; text-align:justify; margin-bottom:7pt; }
+table { width:100%; border-collapse:collapse; margin-bottom:10pt; }
+.sig { margin-top:18pt; }
+.sig-row { display:flex; justify-content:space-between; gap:14pt; margin-bottom:4pt; }
+.sf { display:flex; align-items:baseline; gap:3pt; font-size:9pt; flex:1; }
+.guardian { font-size:8pt; color:#222; margin:3pt 0 12pt 0; }
+.rel-row { display:flex; align-items:baseline; gap:3pt; font-size:9pt; margin-bottom:3pt; }
+.rel-note { font-size:8pt; color:#222; }
+@media print { body { padding:28pt 44pt; } }
+</style>
+</head><body>
+
+<div class="logos">
+  <img src="${LL}" alt="logo-left">
+  <img src="${LR}" alt="logo-right">
+</div>
+
+<div class="title">
+  SAVEETHA DENTAL COLLEGE AND HOSPITAL<br>
+  CONSENT FOR DENTAL PROSTHODONTICS
+</div>
+
+<div class="fields">
+  <div class="fi"><span>Patient Name/</span>${uP(V.name,"140pt")}</div>
+  <div class="fi"><span>Date/</span>${uP(V.date,"100pt")}</div>
+  <div class="fi"><span>Age/</span>${uP(V.age?V.age+" yrs":"","140pt")}</div>
+  <div class="fi"><span>Gender/</span>${uP(V.gender,"100pt")}</div>
+</div>
+
+<div class="body">
+  An alternative to the following has been explained and I authorize the Dentist to do the following
+  treatment and any others necessary for the reasons in. I understand I may need further treatment by a
+  specialist or even hospitalization if complications arise during or following treatment, the cost of
+  which is my responsibility. I have been given satisfactory answers to all of my questions, and I wish
+  to proceed with the Recommended Treatment.
+</div>
+
+<div class="ri">
+  These potential risks and complications, include, but are not limited to, the following:
+</div>
+
+<table><tbody>${risksRows}</tbody></table>
+
+<div class="sig">
+  <div class="sig-row">
+    <div class="sf"><span>Signature/</span>${uP(V.sig,"165pt")}</div>
+    <div class="sf"><span>Date/</span>${uP(V.sigdate,"110pt")}</div>
+  </div>
+  <div class="guardian">(Patient/Parent/Guardian)</div>
+  <div class="rel-row">
+    <span>Relationship (if Patient is a Minor):</span>
+    ${uP(V.rel,"210pt")}
+  </div>
+  <div class="rel-note">&#2909;&#2993;&#2997;&#3009; (&#2984;&#3019;&#2991;&#3006;&#2995;&#3007; &#2990;&#3016;&#2985;&#2992;&#3006;&#2965; &#2951;&#2992;&#3009;&#2984;&#3021;&#2980;&#3006;&#2994;&#3021;)</div>
+</div>
+
+</body></html>`);
+  pw.document.close();
+  pw.focus();
+  setTimeout(() => pw.print(), 800);
+}
+
+update();
+</script>
+</body>
+</html>

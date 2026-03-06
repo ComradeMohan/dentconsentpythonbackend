@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+pymysql
+python-multipart
+pydantic
+python-jose[cryptography]
+passlib[bcrypt]
+reportlab
+python-dotenv
+httpx
+pdfkit

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saveetha Dental – Consent Form</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f0f4f8;
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 30px 16px;
+}
+h1 { font-size: 1.35rem; font-weight: 700; color: #1a2a3a; margin-bottom: 4px; text-align: center; }
+.subtitle { color: #64748b; font-size: 0.84rem; margin-bottom: 28px; text-align: center; }
+.main { display: flex; gap: 24px; width: 100%; max-width: 1100px; align-items: flex-start; }
+
+/* Input Panel */
+.input-panel {
+  background: white; border-radius: 16px; padding: 26px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  width: 310px; flex-shrink: 0; position: sticky; top: 20px;
+}
+.input-panel h2 { font-size: 0.95rem; font-weight: 600; color: #1a2a3a; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 2px solid #f0f4f8; }
+.field-row { margin-bottom: 13px; }
+.field-row label { display: block; font-size: 0.71rem; font-weight: 600; color: #374151; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; }
+.field-row input, .field-row select {
+  width: 100%; padding: 9px 12px; border: 1.5px solid #e2e8f0;
+  border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.87rem;
+  color: #1a2a3a; background: #fafbfc; outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.field-row input:focus, .field-row select:focus {
+  border-color: #3b82f6; background: white; box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+}
+.section-sep { font-size: 0.69rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #94a3b8; margin: 16px 0 12px; padding-top: 14px; border-top: 1px dashed #e2e8f0; }
+
+/* Logo Upload Section */
+.logo-upload-section { margin-bottom: 14px; }
+.logo-upload-section .section-sep { margin-top: 0; }
+.logo-upload-row { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
+.logo-upload-row label.upload-label {
+  flex: 1; padding: 8px 10px; border: 1.5px dashed #3b82f6;
+  border-radius: 8px; font-size: 0.75rem; color: #3b82f6; font-weight: 600;
+  cursor: pointer; text-align: center; background: #eff6ff; transition: all 0.2s;
+}
+.logo-upload-row label.upload-label:hover { background: #dbeafe; }
+.logo-upload-row input[type="file"] { display: none; }
+.logo-thumb { width: 44px; height: 44px; border: 1px solid #e2e8f0; border-radius: 6px; object-fit: contain; background: #f8fafc; display: none; }
+.logo-thumb.visible { display: block; }
+
+.generate-btn {
+  width: 100%; padding: 13px; background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  color: white; border: none; border-radius: 10px; font-family: 'Inter', sans-serif;
+  font-size: 0.9rem; font-weight: 600; cursor: pointer; margin-top: 20px;
+  transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+  box-shadow: 0 4px 14px rgba(29,78,216,0.35);
+}
+.generate-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(29,78,216,0.45); }
+
+/* Preview Panel */
+.preview-panel { flex: 1; background: white; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); overflow: hidden; }
+.preview-header { background: #1a2a3a; color: white; padding: 13px 22px; font-size: 0.82rem; font-weight: 600; }
+.preview-body { padding: 24px; background: #dde3ea; display: flex; justify-content: center; overflow-x: auto; }
+
+/* PDF Page */
+.pdf-page {
+  width: 595px; min-height: 842px; background: white;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.22);
+  padding: 36px 50px 40px;
+  font-family: 'Times New Roman', Georgia, serif;
+  font-size: 9.5pt; color: #000; flex-shrink: 0;
+}
+.pdf-logos { display: flex; justify-content: center; gap: 40px; margin-bottom: 12px; align-items: center; }
+.pdf-logos img { height: 80px; width: auto; object-fit: contain; }
+.pdf-logo-placeholder {
+  height: 80px; width: 80px; border: 1.5px dashed #ccc;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8pt; color: #aaa; text-align: center; border-radius: 4px;
+}
+.pdf-title { text-align: center; font-weight: bold; font-size: 10pt; text-decoration: underline; text-underline-offset: 2px; line-height: 1.6; margin-bottom: 16px; }
+.pdf-fields-top { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 16px; margin-bottom: 14px; }
+.pdf-inline-field { display: flex; align-items: baseline; gap: 4px; font-size: 9.2pt; }
+.pdf-inline-label { white-space: nowrap; font-size: 9.2pt; }
+.pdf-underline { flex: 1; border-bottom: 1px solid #333; height: 15px; font-size: 9.2pt; color: #0000cc; padding: 0 3px; display: flex; align-items: flex-end; font-weight: 500; min-width: 80px; }
+.pdf-underline.empty { color: transparent; }
+.pdf-body { font-size: 8.8pt; line-height: 1.68; text-align: justify; margin-bottom: 10px; }
+.pdf-item { display: flex; gap: 5px; margin-bottom: 6px; font-size: 8.6pt; line-height: 1.65; text-align: justify; }
+.pdf-item-n { font-weight: bold; min-width: 14px; flex-shrink: 0; }
+.pdf-sig-row { display: flex; justify-content: space-between; margin-top: 20px; gap: 24px; align-items: flex-end; }
+.pdf-sig-field { display: flex; align-items: baseline; gap: 4px; font-size: 9.2pt; flex: 1; }
+.pdf-sig-underline { flex: 1; border-bottom: 1px solid #333; height: 15px; color: #0000cc; font-size: 9.2pt; padding: 0 3px; display: flex; align-items: flex-end; font-weight: 500; }
+.pdf-sig-underline.empty { color: transparent; }
+
+@media (max-width: 1000px) {
+  .main { flex-direction: column; align-items: center; }
+  .input-panel { width: 100%; max-width: 595px; position: static; }
+  .pdf-page { transform: scale(0.68); transform-origin: top center; margin-bottom: -260px; }
+}
+</style>
+</head>
+<body>
+
+<h1>&#x1F9B7; Saveetha Dental College &amp; Hospital</h1>
+<p class="subtitle">Local Anesthesia Consent Form &mdash; Fill details &rarr; Live preview &rarr; Generate PDF</p>
+
+<div class="main">
+  <!-- Input Panel -->
+  <div class="input-panel">
+    <h2>&#x1F4CB; Patient Details</h2>
+
+    <!-- ══ LOGO UPLOAD SECTION ══════════════════════════════ -->
+    <div class="logo-upload-section">
+      <div class="section-sep">Upload Logos</div>
+
+      <div class="logo-upload-row">
+        <label class="upload-label" for="upload-logo-left">
+          &#x2B06; Left Logo<br><span style="font-weight:400;font-size:0.68rem">(Triangle)</span>
+        </label>
+        <input type="file" id="upload-logo-left" accept="image/*" onchange="loadLogo('left', this)">
+        <img id="thumb-left" class="logo-thumb" alt="Left logo preview">
+      </div>
+
+      <div class="logo-upload-row">
+        <label class="upload-label" for="upload-logo-right">
+          &#x2B06; Right Logo<br><span style="font-weight:400;font-size:0.68rem">(Circular)</span>
+        </label>
+        <input type="file" id="upload-logo-right" accept="image/*" onchange="loadLogo('right', this)">
+        <img id="thumb-right" class="logo-thumb" alt="Right logo preview">
+      </div>
+    </div>
+    <!-- ════════════════════════════════════════════════════ -->
+
+    <div class="field-row"><label>Patient Name</label><input type="text" id="f-name" placeholder="e.g. Ravi Kumar" oninput="update()"></div>
+    <div class="field-row"><label>Date</label><input type="date" id="f-date" oninput="update()"></div>
+    <div class="field-row"><label>Age</label><input type="number" id="f-age" placeholder="e.g. 32" min="1" max="120" oninput="update()"></div>
+    <div class="field-row"><label>Gender</label>
+      <select id="f-gender" onchange="update()">
+        <option value="">-- Select --</option>
+        <option>Male</option><option>Female</option><option>Other</option>
+      </select>
+    </div>
+    <div class="section-sep">Signature</div>
+    <div class="field-row"><label>Signature (Name)</label><input type="text" id="f-sig" placeholder="Patient / Parent / Guardian" oninput="update()"></div>
+    <div class="field-row"><label>Signature Date</label><input type="date" id="f-sigdate" oninput="update()"></div>
+    <div class="field-row"><label>Relationship (if Minor)</label><input type="text" id="f-rel" placeholder="e.g. Father, Mother" oninput="update()"></div>
+    <button class="generate-btn" onclick="generatePDF()">&#x2B07; Generate &amp; Download PDF</button>
+  </div>
+
+  <!-- Preview Panel -->
+  <div class="preview-panel">
+    <div class="preview-header">&#x1F441; Live Preview &mdash; updates as you type</div>
+    <div class="preview-body">
+      <div class="pdf-page" id="pdf-page"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Logo state ──────────────────────────────────────────
+const logoSrc = { left: null, right: null };
+
+function loadLogo(side, input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    logoSrc[side] = e.target.result;           // base64 data URL
+    const thumb = document.getElementById("thumb-" + side);
+    thumb.src = e.target.result;
+    thumb.classList.add("visible");
+    update();                                   // refresh preview
+  };
+  reader.readAsDataURL(file);
+}
+
+function logoTag(side) {
+  if (logoSrc[side]) {
+    return '<img src="' + logoSrc[side] + '" alt="' + side + ' logo">';
+  }
+  const label = side === "left" ? "Triangle<br>Logo" : "Circular<br>Logo";
+  return '<div class="pdf-logo-placeholder">' + label + '</div>';
+}
+
+// ── Form data ───────────────────────────────────────────
+const RISKS = [
+  "Drug reactions and side effects, Post-operative bleeding, oozing, infection and/or bone infection",
+  "Bruising and/or swelling, restricted mouth opening for several days or weeks",
+  "Possible involvement of the nerves of the lower jaw",
+  "Temporary facial Nerve Paralysis",
+  "The numbness will last for 3 hours. Kindly avoid biting the injected area",
+  "Further treatment cannot be proceeded without Anaesthesia"
+];
+
+function fmtDate(v) {
+  if (!v) return "";
+  const [y,m,d] = v.split("-");
+  return d+"/"+m+"/"+y;
+}
+
+function vals() {
+  return {
+    name:    document.getElementById("f-name").value.trim(),
+    date:    fmtDate(document.getElementById("f-date").value),
+    age:     document.getElementById("f-age").value.trim(),
+    gender:  document.getElementById("f-gender").value,
+    sig:     document.getElementById("f-sig").value.trim(),
+    sigdate: fmtDate(document.getElementById("f-sigdate").value),
+    rel:     document.getElementById("f-rel").value.trim(),
+  };
+}
+
+function uline(value, minw) {
+  return '<div class="pdf-underline ' + (value?"":"empty") + '" style="min-width:' + (minw||"120px") + '">' + (value||"&nbsp;") + '</div>';
+}
+
+// ── Live preview ────────────────────────────────────────
+function update() {
+  const V = vals();
+  const risksHTML = RISKS.map((r,i) =>
+    '<div class="pdf-item"><span class="pdf-item-n">' + (i+1) + '.</span><span>' + r + '</span></div>'
+  ).join("");
+
+  document.getElementById("pdf-page").innerHTML =
+    '<div class="pdf-logos">' + logoTag("left") + logoTag("right") + '</div>' +
+    '<div class="pdf-title">SAVEETHA DENTAL COLLEGE AND HOSPITAL<br>CONSENT FOR LOCAL ANESTHESIA</div>' +
+    '<div class="pdf-fields-top">' +
+      '<div class="pdf-inline-field"><span class="pdf-inline-label">Patient Name:</span>' + uline(V.name,"130px") + '</div>' +
+      '<div class="pdf-inline-field"><span class="pdf-inline-label">Date:</span>' + uline(V.date,"100px") + '</div>' +
+      '<div class="pdf-inline-field"><span class="pdf-inline-label">Age:</span>' + uline(V.age?V.age+" yrs":"","130px") + '</div>' +
+      '<div class="pdf-inline-field"><span class="pdf-inline-label">Gender:</span>' + uline(V.gender,"100px") + '</div>' +
+    '</div>' +
+    '<div class="pdf-body" style="font-weight:bold">An alternative to the following has been explained and I authorize the Dentist to do the following treatment and any others necessary for the reasons in. I understand I may need further treatment by a specialist or even hospitalization if complications arise during or following treatment, the cost of which is my responsibility. I have been given satisfactory answers to all of my questions, and I wish to proceed with the Recommended Treatment.</div>' +
+    '<div class="pdf-body">These potential risks and complications, include, but are not limited to, the following:</div>' +
+    risksHTML +
+    '<div class="pdf-sig-row">' +
+      '<div class="pdf-sig-field"><span>Signature:</span><div class="pdf-sig-underline ' + (V.sig?"":"empty") + '">' + (V.sig||"&nbsp;") + '</div></div>' +
+      '<div style="font-size:8pt;color:#444;white-space:nowrap;padding-bottom:1px">(Patient/Parent/Guardian)</div>' +
+    '</div>' +
+    '<div class="pdf-sig-row" style="margin-top:10px">' +
+      '<div class="pdf-sig-field"><span>Date:</span><div class="pdf-sig-underline ' + (V.sigdate?"":"empty") + '">' + (V.sigdate||"&nbsp;") + '</div></div>' +
+      '<div class="pdf-sig-field"><span>Relationship (if Minor):</span><div class="pdf-sig-underline ' + (V.rel?"":"empty") + '">' + (V.rel||"&nbsp;") + '</div></div>' +
+    '</div>' +
+    '<div style="font-size:7.5pt;color:#555;margin-top:14px;font-style:italic">Note: Patient to sign personally.</div>';
+}
+
+// ── Generate PDF ────────────────────────────────────────
+function generatePDF() {
+  const V = vals();
+  const risksRows = RISKS.map((r,i) =>
+    '<tr><td style="width:12pt;font-weight:bold;vertical-align:top;padding-right:4pt;padding-bottom:5pt">' +
+    (i+1) + '.</td><td style="text-align:justify;line-height:1.65;padding-bottom:5pt;font-size:8.6pt">' + r + '</td></tr>'
+  ).join("");
+
+  function uP(val, w) {
+    return '<span style="display:inline-block;border-bottom:1pt solid #333;min-width:' + (w||"130pt") +
+      ';color:' + (val?"#0000cc":"transparent") + ';font-weight:' + (val?"500":"normal") +
+      ';padding:0 3pt;font-size:9.2pt;vertical-align:bottom">' +
+      (val||"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;") + '</span>';
+  }
+
+  function logoImgPrint(side) {
+    if (logoSrc[side]) return '<img src="' + logoSrc[side] + '" style="height:72pt;width:auto;object-fit:contain" alt="">';
+    return '<div style="width:72pt;height:72pt;border:1pt dashed #ccc;display:flex;align-items:center;justify-content:center;font-size:7pt;color:#aaa">Logo</div>';
+  }
+
+  const pw = window.open("", "_blank", "width=820,height=1000");
+  pw.document.write(
+    '<!DOCTYPE html><html><head><meta charset="UTF-8">' +
+    '<title>Consent Form</title>' +
+    '<style>' +
+    '@page{size:A4;margin:0;}' +
+    '*{box-sizing:border-box;margin:0;padding:0;}' +
+    'body{font-family:"Times New Roman",Georgia,serif;font-size:9.5pt;color:#000;width:595pt;min-height:842pt;padding:36pt 50pt 40pt;}' +
+    '.logos{display:flex;justify-content:center;gap:38pt;margin-bottom:12pt;align-items:center;}' +
+    '.title{text-align:center;font-weight:bold;font-size:10pt;text-decoration:underline;line-height:1.6;margin-bottom:14pt;}' +
+    '.fields{display:grid;grid-template-columns:1fr 1fr;gap:5pt 16pt;margin-bottom:13pt;}' +
+    '.fi{display:flex;align-items:baseline;gap:4pt;font-size:9.2pt;}' +
+    '.body{font-size:8.8pt;line-height:1.68;text-align:justify;margin-bottom:9pt;}' +
+    'table{width:100%;border-collapse:collapse;font-size:8.6pt;}' +
+    '.sr{display:flex;justify-content:space-between;gap:22pt;margin-top:20pt;align-items:flex-end;}' +
+    '.sf{display:flex;align-items:baseline;gap:4pt;font-size:9.2pt;flex:1;}' +
+    '@media print{body{padding:28pt 44pt;}}' +
+    '</style></head><body>' +
+    '<div class="logos">' + logoImgPrint("left") + logoImgPrint("right") + '</div>' +
+    '<div class="title">SAVEETHA DENTAL COLLEGE AND HOSPITAL<br>CONSENT FOR LOCAL ANESTHESIA</div>' +
+    '<div class="fields">' +
+      '<div class="fi"><span>Patient Name:</span>' + uP(V.name,"140pt") + '</div>' +
+      '<div class="fi"><span>Date:</span>' + uP(V.date,"100pt") + '</div>' +
+      '<div class="fi"><span>Age:</span>' + uP(V.age?V.age+" yrs":"","140pt") + '</div>' +
+      '<div class="fi"><span>Gender:</span>' + uP(V.gender,"100pt") + '</div>' +
+    '</div>' +
+    '<div class="body" style="font-weight:bold">An alternative to the following has been explained and I authorize the Dentist to do the following treatment and any others necessary for the reasons in. I understand I may need further treatment by a specialist or even hospitalization if complications arise during or following treatment, the cost of which is my responsibility. I have been given satisfactory answers to all of my questions, and I wish to proceed with the Recommended Treatment.</div>' +
+    '<div class="body">These potential risks and complications, include, but are not limited to, the following:</div>' +
+    '<table><tbody>' + risksRows + '</tbody></table>' +
+    '<div class="sr"><div class="sf"><span>Signature:</span>' + uP(V.sig,"150pt") + '</div>' +
+    '<span style="font-size:8pt;color:#444;white-space:nowrap">(Patient/Parent/Guardian)</span></div>' +
+    '<div class="sr" style="margin-top:10pt">' +
+      '<div class="sf"><span>Date:</span>' + uP(V.sigdate,"110pt") + '</div>' +
+      '<div class="sf"><span>Relationship (if Minor):</span>' + uP(V.rel,"110pt") + '</div>' +
+    '</div>' +
+    '<p style="font-size:7.5pt;color:#555;margin-top:13pt;font-style:italic">Note: Patient to sign personally.</p>' +
+    '</body></html>'
+  );
+  pw.document.close();
+  pw.focus();
+  setTimeout(() => pw.print(), 800);
+}
+
+update();
+</script>
+</body>
+</html>

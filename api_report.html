@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DentConsent API Documentation</title>
+    <style>
+        :root {
+            --primary: #00d2ff;
+            --secondary: #3a7bd5;
+            --bg-dark: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --accent: #22d3ee;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            background-image: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 0.5rem;
+        }
+
+        .api-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .api-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 210, 255, 0.1);
+            border-color: rgba(0, 210, 255, 0.3);
+        }
+
+        .api-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .method {
+            font-weight: bold;
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .get {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+        }
+
+        .post {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
+
+        .path {
+            font-family: 'Fira Code', monospace;
+            color: var(--text-main);
+            font-size: 1.1rem;
+        }
+
+        .description {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .curl-box {
+            background: #020617;
+            padding: 1rem;
+            border-radius: 8px;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .curl-box code {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            white-space: pre-wrap;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .api-card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>DentConsent API</h1>
+            <p class="subtitle">Base URL: http://10.179.235.54:8000/api/</p>
+        </header>
+
+        <!-- Auth Section -->
+        <div class="section" id="auth">
+            <h2 class="section-title">Authentication</h2>
+
+            <div class="api-card">
+                <div class="api-header">
+                    <span class="path">/login</span>
+                    <span class="method post">POST</span>
+                </div>
+                <p class="description">User login with email and password.</p>
+                <div class="curl-box">
+                    <code>curl -X POST http://10.179.235.54:8000/api/login \
+-H "Content-Type: application/json" \
+-d '{"email": "user@example.com", "password": "password123"}'</code>
+                </div>
+            </div>
+
+            <div class="api-card">
+                <div class="api-header">
+                    <span class="path">/register</span>
+                    <span class="method post">POST</span>
+                </div>
+                <p class="description">Register a new patient or doctor account.</p>
+                <div class="curl-box">
+                    <code>curl -X POST http://10.179.235.54:8000/api/register \
+-F "email=tester@dentconsent.com" \
+-F "password=secret" \
+-F "full_name=Test User" \
+-F "role=patient" \
+-F "mobile_number=1234567890" \
+-F "image=@/path/to/profile.jpg"</code>
+                </div>
+            </div>
+
+            <div class="api-card">
+                <div class="api-header">
+                    <span class="path">/send_otp</span>
+                    <span class="method post">POST</span>
+                </div>
+                <p class="description">Send OTP for registration or password reset.</p>
+                <div class="curl-box">
+                    <code>curl -X POST http://10.179.235.54:8000/api/send_otp \
+-H "Content-Type: application/json" \
+-d '{"email": "user@example.com", "action": "Registration"}'</code>
+                </div>
+            </div>
+
+            <div class="api-card">
+                <div class="api-header">
+                    <span class="path">/verify_otp</span>
+                    <span class="method post">POST</span>
+                </div>
+                <p class="description">Verify the OTP received via email.</p>
+                <div class="curl-box">
+                    <code>curl -X POST http://10.179.235.54:8000/api/verify_otp \
+-H "Content-Type: application/json" \
+-d '{"email": "user@example.com", "otp": "1234", "action": "Registration"}'</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Section -->
+        <div class="section" id="profile">
+            <h2 class="section-title">User Profiles</h2>
+
+            <div class="api-card">
+                <div class="api-header">
+                    <span class="path">/update_profile_image</span>
+                    <span class="method post">POST</span>
+                </div>
+                <p class="description">Upload or update a user's profile picture.</p>
+                <div class="curl-box">
+                    <code>curl -X POST http://10.179.235.54:8000/api/update_profile_image \
+-F "user_id=1" \
+-F "image=@/path/to/profile.jpg"</code>
+                </div>
+            </div>
+
+            <div class="api-card">
+                <div class="api-header">
+                    <span class="path">/update_doctor_signature</span>
+                    <span class="method post">POST</span>
+                </div>
+                <p class="description">Upload a doctor's digital signature for consent forms.</p>
+                <div class="curl-box">
+                    <code>curl -X POST http://10.179.235.54:8000/api/update_doctor_signature \
+-F "user_id=1" \
+-F "image=@/path/to/signature.png"</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- Education Section -->
+        <div class="section" id="education">
+            <h2 class="section-title">Education content</h2>
+
+            <div class="api-card">
+                <div class="api-header">
+                    <span class="path">/get_education_content</span>
+                    <span class="method get">GET</span>
+                </div>
+                <p class="description">Fetch benefits, risks, and topics for a procedure.</p>
+                <div class="curl-box">
+                    <code>curl -X GET "http://10.179.235.54:8000/api/get_education_content?operation_type_id=1"</code>
+                </div>
+            </div>
+
+            <div class="api-card">
+                <div class="api-header">
+                    <span class="path">/get_procedure_steps</span>
+                    <span class="method get">GET</span>
+                </div>
+                <p class="description">Fetch step-by-step procedure guide and videos.</p>
+                <div class="curl-box">
+                    <code>curl -X GET "http://10.179.235.54:8000/api/get_procedure_steps?operation_type_id=1"</code>
+                </div>
+            </div>
+
+            <div class="api-card">
+                <div class="api-header">
+                    <span class="path">/get_quiz</span>
+                    <span class="method get">GET</span>
+                </div>
+                <p class="description">Retrieve quiz questions for procedure validation.</p>
+                <div class="curl-box">
+                    <code>curl -X GET "http://10.179.235.54:8000/api/get_quiz?operation_type_id=1&language=en"</code>
+                </div>
+            </div>
+
+            <div class="api-card">
+                <div class="api-header">
+                    <span class="path">/submit_consent_quiz</span>
+                    <span class="method post">POST</span>
+                </div>
+                <p class="description">Submit patient quiz results for a treatment record.</p>
+                <div class="curl-box">
+                    <code>curl -X POST http://10.179.235.54:8000/api/submit_consent_quiz \
+-H "Content-Type: application/json" \
+-d '{
+  "treatment_id": 1,
+  "quiz_score": 5,
+  "total_questions": 5,
+  "quiz_data": [
+    {"question_text": "Is this safe?", "selected_option": "Yes", "is_correct": true}
+  ]
+}'</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- Treatment Section -->
+        <div class="section" id="treatments">
+            <h2 class="section-title">Treatments</h2>
+
+            <div class="api-card">
+                <div class="api-header">
+                    <span class="path">/get_treatments</span>
+                    <span class="method get">GET</span>
+                </div>
+                <p class="description">Get clinical treatments for a patient or doctor.</p>
+                <div class="curl-box">
+                    <code>curl -X GET "http://10.179.235.54:8000/api/get_treatments?user_id=1&role=patient"</code>
+                </div>
+            </div>
+
+            <div class="api-card">
+                <div class="api-header">
+                    <span class="path">/create_treatment</span>
+                    <span class="method post">POST</span>
+                </div>
+                <p class="description">Doctor creates a new treatment plan for a patient.</p>
+                <div class="curl-box">
+                    <code>curl -X POST http://10.179.235.54:8000/api/create_treatment \
+-H "Content-Type: application/json" \
+-d '{"doctor_id": 1, "patient_id": 2, "operation_type_id": 3, "clinical_notes": "Urgent"}'</code>
+                </div>
+            </div>
+
+            <div class="api-card">
+                <div class="api-header">
+                    <span class="path">/get_operation_types</span>
+                    <span class="method get">GET</span>
+                </div>
+                <p class="description">List all available dental procedure types.</p>
+                <div class="curl-box">
+                    <code>curl -X GET "http://10.179.235.54:8000/api/get_operation_types"</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Section -->
+        <div class="section" id="chat">
+            <h2 class="section-title">Messaging</h2>
+
+            <div class="api-card">
+                <div class="api-header">
+                    <span class="path">/get_conversations</span>
+                    <span class="method get">GET</span>
+                </div>
+                <p class="description">Retrieve chat history overview for a user.</p>
+                <div class="curl-box">
+                    <code>curl -X GET "http://10.179.235.54:8000/api/get_conversations?user_id=1"</code>
+                </div>
+            </div>
+
+            <div class="api-card">
+                <div class="api-header">
+                    <span class="path">/send_message</span>
+                    <span class="method post">POST</span>
+                </div>
+                <p class="description">Send a direct message to another user.</p>
+                <div class="curl-box">
+                    <code>curl -X POST http://10.179.235.54:8000/api/send_message \
+-H "Content-Type: application/json" \
+-d '{"sender_id": 1, "receiver_id": 2, "message": "Hello"}'</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- Consent Section -->
+        <div class="section" id="consent">
+            <h2 class="section-title">Digital Consent</h2>
+
+            <div class="api-card">
+                <div class="api-header">
+                    <span class="path">/get_consents</span>
+                    <span class="method get">GET</span>
+                </div>
+                <p class="description">List signed consent forms for a patient.</p>
+                <div class="curl-box">
+                    <code>curl -X GET "http://10.179.235.54:8000/api/get_consents?patient_id=2"</code>
+                </div>
+            </div>
+
+            <div class="api-card">
+                <div class="api-header">
+                    <span class="path">/submit_patient_signature</span>
+                    <span class="method post">POST</span>
+                </div>
+                <p class="description">Finalize consent by uploading a digital signature.</p>
+                <div class="curl-box">
+                    <code>curl -X POST http://10.179.235.54:8000/api/submit_patient_signature \
+-H "Content-Type: application/json" \
+-d '{"treatment_id": 1, "signature_base64": "data:image/png;base64,...", "is_confirmed": true}'</code>
+                </div>
+            </div>
+
+            <div class="api-card">
+                <div class="api-header">
+                    <span class="path">/serve_consent_pdf</span>
+                    <span class="method get">GET</span>
+                </div>
+                <p class="description">Download the generated consent PDF.</p>
+                <div class="curl-box">
+                    <code>curl -X GET "http://10.179.235.54:8000/api/serve_consent_pdf?treatment_id=1" --output consent.pdf</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Section -->
+        <div class="section" id="ai">
+            <h2 class="section-title">AI Assistant</h2>
+
+            <div class="api-card">
+                <div class="api-header">
+                    <span class="path">/ai_chat</span>
+                    <span class="method post">POST</span>
+                </div>
+                <p class="description">Chat with DentConsent AI for dental guidance.</p>
+                <div class="curl-box">
+                    <code>curl -X POST http://10.179.235.54:8000/api/ai_chat \
+-H "Content-Type: application/json" \
+-d '{"message": "What is an implant?", "role": "patient"}'</code>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

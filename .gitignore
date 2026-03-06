@@ -1,0 +1,30 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+.env
+.venv/
+
+# Uploads folder (user-generated content, do not commit)
+uploads/
+
+# wkhtmltox binary tool (install separately)
+wkhtmltox/
+wkhtmltox.exe
+wkhtmltox.7z
+
+# Zip archives
+uploads.zip
+
+# Structure dump files
+struct.txt
+structure.txt
+
+# OS files
+.DS_Store
+Thumbs.db
